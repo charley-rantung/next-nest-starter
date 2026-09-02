@@ -1,0 +1,14 @@
+// https://www.prisma.io/docs/orm/prisma-schema/overview/generators
+generator client {
+  provider               = "prisma-client"
+  output                 = "../src/generated/prisma"
+  engineType             = "client" // https://www.prisma.io/docs/orm/v6/prisma-client/setup-and-configuration/no-rust-engine
+  runtime                = "nodejs"
+  moduleFormat           = "cjs"
+  generatedFileExtension = "ts"
+  importFileExtension    = ""
+}
+
+datasource db {
+  provider = "postgresql"
+}

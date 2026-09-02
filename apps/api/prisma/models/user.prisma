@@ -1,0 +1,61 @@
+model user {
+    id            Int          @id @default(autoincrement())
+    uid           String       @unique @default(cuid(2))
+    name          String
+    email         String       @unique
+    username      String       @unique
+    password      String
+    type          user_type
+    is_active     Boolean      @default(true)
+    created_at    DateTime     @default(now())
+    created_by    Int
+    updated_at    DateTime     @updatedAt
+    updated_by    Int
+    // N:1 
+    creator       user         @relation("created_users", fields: [created_by], references: [id])
+    updater       user         @relation("updated_users", fields: [updated_by], references: [id])
+    // 1:N
+    created_users user[]       @relation("created_users")
+    updated_users user[]       @relation("updated_users")
+    sessions      session[]
+    // M:N
+    roles         role[]       @relation("user_role")
+    permissions   permission[] @relation("user_permission")
+}
+
+enum user_type {
+    internal
+    admin
+    user
+}
+
+model role {
+    id          Int          @id @default(autoincrement())
+    name        String       @unique
+    description String?
+    // M:N
+    users       user[]       @relation("user_role")
+    permissions permission[] @relation("role_permission")
+}
+
+model permission {
+    id          Int     @id @default(autoincrement())
+    name        String
+    slug        String  @unique
+    description String?
+    // M:N
+    users       user[]  @relation("user_permission")
+    roles       role[]  @relation("role_permission")
+}
+
+model session {
+    id           String   @id
+    user_id      Int
+    created_at   DateTime @default(now())
+    expires_at   DateTime
+    last_used_at DateTime @default(now())
+    ip_address   String?
+    user_agent   String?
+    // N:1
+    user         user     @relation(fields: [user_id], references: [id])
+}
