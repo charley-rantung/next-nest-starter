@@ -26,5 +26,9 @@ export type VerifyPasswordResetOtpResponse = ApiResponse<{ token: string }>
 export type ResetPasswordBody = z.input<typeof s.ResetPasswordSchema.body>
 export type ResetPasswordResponse = ApiResponse
 
+// Change password
+export type ChangePasswordBody = z.input<typeof s.ChangePasswordSchema.body>
+export type ChangePasswordResponse = ApiResponse
+
 // List
 export type MySessionListResponse = ApiResponse<Sessions>

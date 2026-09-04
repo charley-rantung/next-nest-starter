@@ -60,7 +60,3 @@ export type UserDetailResponse = ApiResponse<User | null>
 export type UserUpdateParams = z.input<typeof s.UserUpdateSchema.params>
 export type UserUpdateBody = z.input<typeof s.UserUpdateSchema.body>
 export type UserUpdateResponse = ApiResponse<User>
-
-// Update own password
-export type UserUpdateOwnPasswordBody = z.input<typeof s.UserUpdateOwnPasswordSchema.body>
-export type UserUpdateOwnPasswordResponse = ApiResponse

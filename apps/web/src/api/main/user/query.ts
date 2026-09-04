@@ -32,9 +32,3 @@ export const updateUserMutationOptions = () =>
     mutationKey: ["user:update"],
     mutationFn: x.updateUser,
   })
-
-export const updateMyPasswordMutationOptions = () =>
-  mutationOptions({
-    mutationKey: ["user:update-my-password"],
-    mutationFn: x.updateMyPassword,
-  })

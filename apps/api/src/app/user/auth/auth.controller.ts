@@ -10,13 +10,15 @@ import {
   RequestPasswordResetSchema,
   ResetPasswordSchema,
   VerifyPasswordResetOtpSchema,
+  ChangePasswordSchema,
   type AccessTokenPayload,
   type MySessionListResponse,
   type RequestPasswordResetResponse,
   type VerifyPasswordResetOtpResponse,
   type ResetPasswordResponse,
+  type ChangePasswordResponse,
 } from '@starter-pack/api-contracts';
-import type { SignInBody, RequestPasswordResetBody, ResetPasswordBody, VerifyPasswordResetOtpBody } from './auth.types';
+import type { SignInBody, RequestPasswordResetBody, ResetPasswordBody, VerifyPasswordResetOtpBody, ChangePasswordBody } from './auth.types';
 import type { Request, Response } from 'express';
 
 @SkipCsrf()
@@ -164,6 +166,26 @@ export class AuthController {
       requestId: '',
       success: true,
       message: 'Password has been reset successfully',
+      data: null,
+      meta: {
+        timestamp: Date.now(),
+      },
+    };
+  }
+
+  @Post('change-password')
+  async changePassword(
+    @Body(new ZodPipe(ChangePasswordSchema.body))
+    body: ChangePasswordBody,
+    @Session()
+    session: AccessTokenPayload,
+  ): Promise<ChangePasswordResponse> {
+    await this.authService.changePassword(session.sub, body);
+
+    return {
+      requestId: '',
+      success: true,
+      message: 'Password updated successfully',
       data: null,
       meta: {
         timestamp: Date.now(),

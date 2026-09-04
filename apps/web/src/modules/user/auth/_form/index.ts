@@ -1,3 +1,4 @@
+export * from "./ChangePasswordForm"
 export * from "./ForgotPasswordForm"
 export * from "./RecoveryCodeForm"
 export * from "./ResetPasswordForm"

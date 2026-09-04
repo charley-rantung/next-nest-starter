@@ -28,3 +28,10 @@ export const ResetPasswordSchema = {
     password: BaseStringSchema.password,
   }),
 }
+
+export const ChangePasswordSchema = {
+  body: z.object({
+    old_password: BaseStringSchema.password,
+    new_password: BaseStringSchema.password,
+  }),
+}

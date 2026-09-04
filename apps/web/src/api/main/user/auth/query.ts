@@ -37,6 +37,12 @@ export const resetPasswordMutationOptions = () =>
     mutationFn: x.resetPassword,
   })
 
+export const changePasswordMutationOptions = () =>
+  mutationOptions({
+    mutationKey: ["auth:change-password"],
+    mutationFn: x.changePassword,
+  })
+
 export const getOwnSessionsQueryOptions = () =>
   queryOptions({
     queryKey: ["user-session:list"],

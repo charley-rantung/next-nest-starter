@@ -4,14 +4,12 @@ import type {
   UserDetailParams,
   UserListQuery,
   UserUpdateBody,
-  UserUpdateOwnPasswordBody,
   UserUpdateParams,
   UserCreateBody,
   UserCreateResponse,
   UserListResponse,
   UserDetailResponse,
   UserUpdateResponse,
-  UserUpdateOwnPasswordResponse,
 } from "@starter-pack/api-contracts"
 
 const PATH = "/users/"
@@ -35,8 +33,4 @@ export const getMe = () => {
 
 export const updateUser = (props: { params: UserUpdateParams; body: UserUpdateBody }) => {
   return api.patch<UserUpdateResponse>(PATH + props.params.uid, props.body)
-}
-
-export const updateMyPassword = (props: { body: UserUpdateOwnPasswordBody }) => {
-  return api.patch<UserUpdateOwnPasswordResponse>(PATH + "me/password", props.body)
 }

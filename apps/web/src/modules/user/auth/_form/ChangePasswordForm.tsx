@@ -1,25 +1,25 @@
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { UserUpdateOwnPasswordSchema } from "@starter-pack/api-contracts"
+import { ChangePasswordSchema } from "@starter-pack/api-contracts"
 import { useMutation } from "@tanstack/react-query"
-import { updateMyPasswordMutationOptions } from "@/api/main/user/query"
+import { changePasswordMutationOptions } from "@/api/main/user/auth/query"
 import { App, Button, Form, Input } from "antd"
 
-export const useUpdateMyPasswordForm = () =>
+export const useChangePasswordForm = () =>
   useForm({
-    resolver: zodResolver(UserUpdateOwnPasswordSchema.body),
+    resolver: zodResolver(ChangePasswordSchema.body),
   })
 
-type UpdateMyPasswordFormProps = {
+type ChangePasswordFormProps = {
   onSuccess?: () => void
   onError?: () => void
 }
 
-export function UpdateMyPasswordForm(props: UpdateMyPasswordFormProps) {
+export function ChangePasswordForm(props: ChangePasswordFormProps) {
   const { notification } = App.useApp()
 
-  const action = useMutation(updateMyPasswordMutationOptions())
-  const form = useUpdateMyPasswordForm()
+  const action = useMutation(changePasswordMutationOptions())
+  const form = useChangePasswordForm()
   const handleSubmit = form.handleSubmit((data) => {
     action.mutate(
       {
@@ -54,12 +54,7 @@ export function UpdateMyPasswordForm(props: UpdateMyPasswordFormProps) {
         name="old_password"
         control={form.control}
         render={({ field, fieldState }) => (
-          <Form.Item
-            label="Old Password"
-            validateStatus={fieldState.error ? "error" : undefined}
-            help={fieldState.error?.message}
-            required
-          >
+          <Form.Item label="Old Password" validateStatus={fieldState.error ? "error" : undefined} help={fieldState.error?.message} required>
             <Input.Password {...field} autoFocus />
           </Form.Item>
         )}
@@ -69,12 +64,7 @@ export function UpdateMyPasswordForm(props: UpdateMyPasswordFormProps) {
         control={form.control}
         render={({ field, fieldState }) => (
           <>
-            <Form.Item
-              label="New Password"
-              validateStatus={fieldState.error ? "error" : undefined}
-              help={fieldState.error?.message}
-              required
-            >
+            <Form.Item label="New Password" validateStatus={fieldState.error ? "error" : undefined} help={fieldState.error?.message} required>
               <Input.Password {...field} autoFocus />
             </Form.Item>
           </>

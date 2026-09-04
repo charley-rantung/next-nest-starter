@@ -1,7 +1,7 @@
 "use client"
 
 import { useAccountController } from "./controller"
-import { UpdateMyPasswordForm } from "@/modules/user"
+import { ChangePasswordForm } from "@/modules/user"
 import { Button, Card, Descriptions, Modal, Table, Typography, type DescriptionsProps } from "antd"
 
 export default function ProfilePage() {
@@ -76,7 +76,7 @@ export default function ProfilePage() {
           c.setIsModalOpen(false)
         }}
       >
-        <UpdateMyPasswordForm
+        <ChangePasswordForm
           onSuccess={() => {
             c.setIsModalOpen(false)
           }}

@@ -7,16 +7,14 @@ import {
   UserCreateSchema,
   UserDetailSchema,
   UserListSchema,
-  UserUpdateOwnPasswordSchema,
   UserUpdateSchema,
   type AccessTokenPayload,
   type UserCreateResponse,
   type UserDetailResponse,
   type UserListResponse,
-  type UserUpdateOwnPasswordResponse,
   type UserUpdateResponse,
 } from '@starter-pack/api-contracts';
-import type { UserCreateBody, UserDetailParams, UserListQuery, UserUpdateBody, UserUpdateOwnPasswordBody, UserUpdateParams } from './user.types';
+import type { UserCreateBody, UserDetailParams, UserListQuery, UserUpdateBody, UserUpdateParams } from './user.types';
 
 @Controller('users')
 @UseGuards(PermissionGuard)
@@ -99,27 +97,6 @@ export class UserController {
       success: true,
       data: user,
       message: 'User found',
-      meta: {
-        timestamp: Date.now(),
-      },
-    };
-  }
-
-  @Patch('me/password')
-  @Permissions()
-  async updateMyPassword(
-    @Body(new ZodPipe(UserUpdateOwnPasswordSchema.body))
-    body: UserUpdateOwnPasswordBody,
-    @Session()
-    session: AccessTokenPayload,
-  ): Promise<UserUpdateOwnPasswordResponse> {
-    await this.userService.updateMyPassword(session.sub, body);
-
-    return {
-      requestId: '',
-      success: true,
-      data: null,
-      message: 'Password updated successfully',
       meta: {
         timestamp: Date.now(),
       },

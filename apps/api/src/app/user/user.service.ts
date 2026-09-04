@@ -1,11 +1,11 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from 'src/common/provider/prisma/prisma.service';
 import bcrypt from 'bcrypt';
 import type { EnvType } from 'src/common/utils/env.utils';
 import type { Prisma } from 'src/generated/prisma/client';
 import type { User, Users } from '@starter-pack/api-contracts';
-import type { UserCreateBody, UserListQuery, UserUpdateBody, UserUpdateOwnPasswordBody } from './user.types';
+import type { UserCreateBody, UserListQuery, UserUpdateBody } from './user.types';
 
 @Injectable()
 export class UserService {
@@ -287,39 +287,5 @@ export class UserService {
     });
 
     return user;
-  }
-
-  async updateMyPassword(uid: string, body: UserUpdateOwnPasswordBody) {
-    const user = await this.prismaService.user.findUnique({
-      where: {
-        NOT: { type: 'internal' },
-        uid,
-      },
-      select: {
-        password: true,
-      },
-    });
-    if (!user) throw new ForbiddenException();
-
-    /** Validate old password */
-
-    const isAuth = bcrypt.compareSync(body.old_password, user.password);
-    if (!isAuth) throw new ForbiddenException('Password do not match');
-
-    /** Update new password */
-
-    const hashedPassword = bcrypt.hashSync(body.new_password, this.configService.get('BCRYPT_SALT_ROUNDS', { infer: true }));
-
-    await this.prismaService.user.update({
-      where: { uid },
-      data: {
-        password: hashedPassword,
-        updater: {
-          connect: {
-            uid,
-          },
-        },
-      },
-    });
   }
 }

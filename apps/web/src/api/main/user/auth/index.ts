@@ -1,5 +1,7 @@
 import { api, base } from "@/api/main/axios"
 import type {
+  ChangePasswordBody,
+  ChangePasswordResponse,
   MySessionListResponse,
   RequestPasswordResetBody,
   RequestPasswordResetResponse,
@@ -35,6 +37,10 @@ export const verifyPasswordResetOtp = (props: { body: VerifyPasswordResetOtpBody
 
 export const resetPassword = (props: { body: ResetPasswordBody }) => {
   return base.post<ResetPasswordResponse>(PATH + "reset-password", props.body)
+}
+
+export const changePassword = (props: { body: ChangePasswordBody }) => {
+  return api.patch<ChangePasswordResponse>(PATH + "change-password", props.body)
 }
 
 export const getOwnSessions = () => {

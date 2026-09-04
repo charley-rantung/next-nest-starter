@@ -14,7 +14,7 @@ import crypto from 'node:crypto';
 import type { EnvType } from 'src/common/utils/env.utils';
 import type { Request } from 'express';
 import type { AccessTokenPayload, RefreshTokenPayload, Sessions } from '@starter-pack/api-contracts';
-import type { RequestPasswordResetBody, ResetPasswordBody, SignInBody, VerifyPasswordResetOtpBody } from './auth.types';
+import type { ChangePasswordBody, RequestPasswordResetBody, ResetPasswordBody, SignInBody, VerifyPasswordResetOtpBody } from './auth.types';
 import type { ResetPasswordType } from './interfaces/redis-values.interface';
 import type { MailJobData, MailJobName } from 'src/common/provider/queue/mail.processor';
 
@@ -398,6 +398,40 @@ export class AuthService {
     await this.mailQueue.add('send-password-changed-notification', {
       to: body.email,
       text: `Your password has been changed successfully. If you did not initiate this change, please contact support immediately.`,
+    });
+  }
+
+  async changePassword(userUid: string, body: ChangePasswordBody) {
+    /** Verify old password */
+
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        NOT: { type: 'internal' },
+        uid: userUid,
+      },
+      select: {
+        password: true,
+      },
+    });
+    if (!user) throw new BadRequestException('User not found');
+
+    const isMatch = bcrypt.compareSync(body.old_password, user.password);
+    if (!isMatch) throw new BadRequestException('Current password is incorrect');
+
+    /** Update new password */
+
+    const hashedPassword = bcrypt.hashSync(body.new_password, this.configService.get('BCRYPT_SALT_ROUNDS', { infer: true }));
+
+    await this.prismaService.user.update({
+      where: { uid: userUid },
+      data: {
+        password: hashedPassword,
+        updater: {
+          connect: {
+            uid: userUid,
+          },
+        },
+      },
     });
   }
 
