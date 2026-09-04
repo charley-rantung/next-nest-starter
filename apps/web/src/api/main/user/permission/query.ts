@@ -5,5 +5,5 @@ import type { PermissionListQuery } from "@starter-pack/api-contracts"
 export const getPermissionsQueryOptions = (query?: PermissionListQuery) =>
   queryOptions({
     queryKey: ["user-permission:list"],
-    queryFn: () => x.getPermissions({ query }),
+    queryFn: () => x.getPermissions({ query })
   })

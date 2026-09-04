@@ -5,7 +5,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Starter Pack",
-  description: "Starter Pack Using NestJS and NextJS",
+  description: "Starter Pack Using NestJS and NextJS"
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

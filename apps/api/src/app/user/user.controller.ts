@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
-import { PermissionGuard, Permissions } from 'src/common/guard/permission.guard';
-import { UserService } from './user.service';
-import { ZodPipe } from 'src/common/pipe/zod.pipe';
-import { Session } from 'src/common/decorator/session.decorator';
+import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from "@nestjs/common"
+import { PermissionGuard, Permissions } from "src/common/guard/permission.guard"
+import { UserService } from "./user.service"
+import { ZodPipe } from "src/common/pipe/zod.pipe"
+import { Session } from "src/common/decorator/session.decorator"
 import {
   UserCreateSchema,
   UserDetailSchema,
@@ -12,117 +12,117 @@ import {
   type UserCreateResponse,
   type UserDetailResponse,
   type UserListResponse,
-  type UserUpdateResponse,
-} from '@starter-pack/api-contracts';
-import type { UserCreateBody, UserDetailParams, UserListQuery, UserUpdateBody, UserUpdateParams } from './user.types';
+  type UserUpdateResponse
+} from "@starter-pack/api-contracts"
+import type { UserCreateBody, UserDetailParams, UserListQuery, UserUpdateBody, UserUpdateParams } from "./user.types"
 
-@Controller('users')
+@Controller("users")
 @UseGuards(PermissionGuard)
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Post()
-  @Permissions(['user:create'])
+  @Permissions(["user:create"])
   async create(
     @Body(new ZodPipe(UserCreateSchema.body))
     body: UserCreateBody,
     @Session()
-    session: AccessTokenPayload,
+    session: AccessTokenPayload
   ): Promise<UserCreateResponse> {
-    const user = await this.userService.create(body, session.sub);
+    const user = await this.userService.create(body, session.sub)
 
     return {
-      requestId: '',
+      requestId: "",
       success: true,
       data: user,
-      message: 'User created successfully',
+      message: "User created successfully",
       meta: {
-        timestamp: Date.now(),
-      },
-    };
+        timestamp: Date.now()
+      }
+    }
   }
 
   @Get()
-  @Permissions(['user:read'])
+  @Permissions(["user:read"])
   async findAll(
     @Query(new ZodPipe(UserListSchema.query))
-    query: UserListQuery,
+    query: UserListQuery
   ): Promise<UserListResponse> {
-    const [users, total] = await this.userService.findAll(query);
+    const [users, total] = await this.userService.findAll(query)
 
     return {
-      requestId: '',
+      requestId: "",
       success: true,
       data: users,
-      message: 'Users found',
+      message: "Users found",
       meta: {
         timestamp: Date.now(),
         page: query.page,
         size: query.size,
         count: users.length,
-        total,
-      },
-    };
+        total
+      }
+    }
   }
 
-  @Get('me')
+  @Get("me")
   @Permissions()
   async getMe(
     @Session()
-    session: AccessTokenPayload,
+    session: AccessTokenPayload
   ): Promise<UserDetailResponse> {
-    const user = await this.userService.getMe(session.sub);
+    const user = await this.userService.getMe(session.sub)
 
     return {
-      requestId: '',
+      requestId: "",
       success: true,
       data: user,
-      message: 'User found',
+      message: "User found",
       meta: {
-        timestamp: Date.now(),
-      },
-    };
+        timestamp: Date.now()
+      }
+    }
   }
 
-  @Get(':uid')
-  @Permissions(['user:read'])
+  @Get(":uid")
+  @Permissions(["user:read"])
   async findOne(
     @Param(new ZodPipe(UserDetailSchema.params))
-    params: UserDetailParams,
+    params: UserDetailParams
   ): Promise<UserDetailResponse> {
-    const user = await this.userService.findOne(params.uid);
+    const user = await this.userService.findOne(params.uid)
 
     return {
-      requestId: '',
+      requestId: "",
       success: true,
       data: user,
-      message: 'User found',
+      message: "User found",
       meta: {
-        timestamp: Date.now(),
-      },
-    };
+        timestamp: Date.now()
+      }
+    }
   }
 
-  @Patch(':uid')
-  @Permissions(['user:update'])
+  @Patch(":uid")
+  @Permissions(["user:update"])
   async update(
     @Param(new ZodPipe(UserUpdateSchema.params))
     params: UserUpdateParams,
     @Body(new ZodPipe(UserUpdateSchema.body))
     body: UserUpdateBody,
     @Session()
-    session: AccessTokenPayload,
+    session: AccessTokenPayload
   ): Promise<UserUpdateResponse> {
-    const user = await this.userService.update(params.uid, body, session.sub);
+    const user = await this.userService.update(params.uid, body, session.sub)
 
     return {
-      requestId: '',
+      requestId: "",
       success: true,
       data: user,
-      message: 'User updated successfully',
+      message: "User updated successfully",
       meta: {
-        timestamp: Date.now(),
-      },
-    };
+        timestamp: Date.now()
+      }
+    }
   }
 }

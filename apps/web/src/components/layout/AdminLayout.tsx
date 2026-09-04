@@ -17,7 +17,7 @@ const menu: MenuProps["items"] = [
   {
     key: "home",
     label: <Link href={`${PRIVATE_ROUTE_PREFIX}/home`}>Home</Link>,
-    icon: <HomeOutlined />,
+    icon: <HomeOutlined />
   },
   {
     key: "settings",
@@ -27,21 +27,21 @@ const menu: MenuProps["items"] = [
       {
         key: "user",
         label: <Link href={`${PRIVATE_ROUTE_PREFIX}/user`}>User</Link>,
-        icon: <UserOutlined />,
+        icon: <UserOutlined />
       },
       {
         key: "user-role",
         label: <Link href={`${PRIVATE_ROUTE_PREFIX}/role`}>Role</Link>,
-        icon: <TeamOutlined />,
-      },
-    ],
-  },
+        icon: <TeamOutlined />
+      }
+    ]
+  }
 ]
 
 const menuMap: Record<string, string> = {
   [PRIVATE_ROUTE_PREFIX + "/home"]: "home",
   [PRIVATE_ROUTE_PREFIX + "/user"]: "user",
-  [PRIVATE_ROUTE_PREFIX + "/role"]: "user-role",
+  [PRIVATE_ROUTE_PREFIX + "/role"]: "user-role"
 }
 
 export default function AdminLayout({ children }: React.PropsWithChildren) {
@@ -65,7 +65,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
             insetInlineStart: 0,
             overflowY: "auto",
             scrollbarWidth: "none",
-            scrollbarGutter: "stable",
+            scrollbarGutter: "stable"
           }}
         >
           <div id="brand" className="flex items-center justify-center h-16">
@@ -87,7 +87,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
             position: "sticky",
             top: 0,
             zIndex: 1,
-            background: "#ffffff",
+            background: "#ffffff"
           }}
         >
           <div className="flex items-center">
@@ -111,7 +111,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
                               onSuccess: () => {
                                 // window.location.reload()
                                 router.refresh()
-                              },
+                              }
                             })
                           }}
                         >
@@ -125,7 +125,7 @@ export default function AdminLayout({ children }: React.PropsWithChildren) {
                               onSuccess: () => {
                                 setUser(null)
                                 router.replace("/auth/sign-in")
-                              },
+                              }
                             })
                           }}
                         >

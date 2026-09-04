@@ -9,7 +9,7 @@ import { App, Button, Empty, Form, Input, Select, Skeleton } from "antd"
 
 export const useUpdateRoleForm = () =>
   useForm({
-    resolver: zodResolver(RoleUpdateSchema.body),
+    resolver: zodResolver(RoleUpdateSchema.body)
   })
 
 type UpdateRoleFormProps = {
@@ -30,35 +30,35 @@ export function UpdateRoleForm(props: UpdateRoleFormProps) {
     action.mutate(
       {
         params: {
-          id: props.id,
+          id: props.id
         },
         body: {
           name: data.name,
           description: data.description,
-          permissions: data.permissions,
-        },
+          permissions: data.permissions
+        }
       },
       {
         onSuccess: (res) => {
           form.reset({
             name: res.data.data.name,
             description: res.data.data.description ?? "",
-            permissions: res.data.data.permissions.map((p) => p.id),
+            permissions: res.data.data.permissions.map((p) => p.id)
           })
           notification.success({
             title: "Success",
-            description: res.data.message,
+            description: res.data.message
           })
           props.onSuccess?.()
         },
         onError: (err) => {
           notification.error({
             title: err.response?.statusText || "Failed",
-            description: err.response?.data.message || err.message,
+            description: err.response?.data.message || err.message
           })
           props.onError?.()
-        },
-      },
+        }
+      }
     )
   })
 
@@ -67,7 +67,7 @@ export function UpdateRoleForm(props: UpdateRoleFormProps) {
       form.reset({
         name: role.data.data.data.name,
         description: role.data.data.data.description ?? "",
-        permissions: role.data.data.data.permissions.map((p) => p.id),
+        permissions: role.data.data.data.permissions.map((p) => p.id)
       })
     }
   }, [role.data, form])
@@ -127,7 +127,7 @@ export function UpdateRoleForm(props: UpdateRoleFormProps) {
               mode="multiple"
               options={permissions.data?.data.data.map((p) => ({
                 label: p.name,
-                value: p.id,
+                value: p.id
               }))}
               showSearch={{ optionFilterProp: ["label"] }}
               allowClear

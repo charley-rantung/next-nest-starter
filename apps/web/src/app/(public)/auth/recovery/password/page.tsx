@@ -14,7 +14,7 @@ export default function ResetPasswordPage() {
 
   useEffect(() => {
     if (!token || !email) router.back()
-  }, [token, email])
+  }, [token, email, router])
 
   if (!token || !email) return
 

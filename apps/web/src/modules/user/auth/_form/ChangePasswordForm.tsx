@@ -7,7 +7,7 @@ import { App, Button, Form, Input } from "antd"
 
 export const useChangePasswordForm = () =>
   useForm({
-    resolver: zodResolver(ChangePasswordSchema.body),
+    resolver: zodResolver(ChangePasswordSchema.body)
   })
 
 type ChangePasswordFormProps = {
@@ -25,26 +25,26 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
       {
         body: {
           old_password: data.old_password,
-          new_password: data.new_password,
-        },
+          new_password: data.new_password
+        }
       },
       {
         onSuccess: (res) => {
           form.reset()
           notification.success({
             title: "Success",
-            description: res.data.message,
+            description: res.data.message
           })
           props.onSuccess?.()
         },
         onError: (err) => {
           notification.error({
             title: err.response?.statusText || "Failed",
-            description: err.response?.data.message || err.message,
+            description: err.response?.data.message || err.message
           })
           props.onError?.()
-        },
-      },
+        }
+      }
     )
   })
 
@@ -54,7 +54,12 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
         name="old_password"
         control={form.control}
         render={({ field, fieldState }) => (
-          <Form.Item label="Old Password" validateStatus={fieldState.error ? "error" : undefined} help={fieldState.error?.message} required>
+          <Form.Item
+            label="Old Password"
+            validateStatus={fieldState.error ? "error" : undefined}
+            help={fieldState.error?.message}
+            required
+          >
             <Input.Password {...field} autoFocus />
           </Form.Item>
         )}
@@ -64,7 +69,12 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
         control={form.control}
         render={({ field, fieldState }) => (
           <>
-            <Form.Item label="New Password" validateStatus={fieldState.error ? "error" : undefined} help={fieldState.error?.message} required>
+            <Form.Item
+              label="New Password"
+              validateStatus={fieldState.error ? "error" : undefined}
+              help={fieldState.error?.message}
+              required
+            >
               <Input.Password {...field} autoFocus />
             </Form.Item>
           </>

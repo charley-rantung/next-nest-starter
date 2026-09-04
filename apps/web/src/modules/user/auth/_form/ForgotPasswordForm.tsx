@@ -8,7 +8,7 @@ import { MailOutlined } from "@ant-design/icons"
 
 export const useRequestPasswordResetForm = () =>
   useForm({
-    resolver: zodResolver(RequestPasswordResetSchema.body),
+    resolver: zodResolver(RequestPasswordResetSchema.body)
   })
 
 type RequestPasswordResetFormProps = {
@@ -25,25 +25,25 @@ export function RequestPasswordResetForm(props: RequestPasswordResetFormProps) {
     action.mutate(
       {
         body: {
-          email: data.email,
-        },
+          email: data.email
+        }
       },
       {
         onSuccess: (res) => {
           notification.success({
             title: "Success",
-            description: res.data.message,
+            description: res.data.message
           })
           props.onSuccess?.(data)
         },
         onError: (err) => {
           notification.error({
             title: err.response?.statusText || "Failed",
-            description: err.response?.data.message || err.message,
+            description: err.response?.data.message || err.message
           })
           props.onError?.()
-        },
-      },
+        }
+      }
     )
   })
 

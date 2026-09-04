@@ -39,8 +39,8 @@ function makeQueryClient() {
         refetchInterval: false,
         staleTime: 60 * 1000,
         gcTime: 60 * 1000,
-        retry: 1,
-      },
-    },
+        retry: 1
+      }
+    }
   })
 }

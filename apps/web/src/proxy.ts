@@ -65,8 +65,8 @@ const refreshAccessToken = async (req: NextRequest, res: NextResponse) => {
     const cookies = (
       await refreshToken({
         headers: {
-          Cookie: req.cookies.toString(),
-        },
+          Cookie: req.cookies.toString()
+        }
       })
     ).headers["set-cookie"]
 

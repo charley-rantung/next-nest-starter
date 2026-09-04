@@ -4,21 +4,22 @@ import { refreshToken } from "./user/auth"
 import { getClientCookie } from "@/utils/helper"
 import { ApiErrorResponse } from "@starter-pack/api-contracts"
 import { AuthErrorCode } from "@starter-pack/api-contracts/codes"
+import { redirect } from "next/navigation"
 
 const REFRESHABLE_CODES = new Set<string>([
   AuthErrorCode.TOKEN_MISSING,
   AuthErrorCode.TOKEN_INVALID,
-  AuthErrorCode.TOKEN_EXPIRED,
+  AuthErrorCode.TOKEN_EXPIRED
 ])
 
 const base = axios.create({
   baseURL: API_MAIN_URL,
-  withCredentials: true,
+  withCredentials: true
 })
 
 const api = axios.create({
   baseURL: API_MAIN_URL,
-  withCredentials: true,
+  withCredentials: true
 })
 
 api.interceptors.request.use((req) => {
@@ -44,14 +45,12 @@ api.interceptors.response.use(
         await refreshToken()
         return api(config)
       } catch {
-        if (typeof window !== "undefined") {
-          window.location.href = "/auth/sign-in"
-        }
+        redirect("/auth/sign-in")
       }
     }
 
     return Promise.reject(err)
-  },
+  }
 )
 
 export { api, base }

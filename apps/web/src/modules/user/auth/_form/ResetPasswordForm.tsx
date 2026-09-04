@@ -10,8 +10,8 @@ export const useResetPasswordForm = (token: string) =>
   useForm({
     resolver: zodResolver(ResetPasswordSchema.body),
     defaultValues: {
-      token,
-    },
+      token
+    }
   })
 
 type ResetPasswordFormProps = {
@@ -32,25 +32,25 @@ export function ResetPasswordForm(props: ResetPasswordFormProps) {
         body: {
           email: props.email,
           password: data.password,
-          token: data.token,
-        },
+          token: data.token
+        }
       },
       {
         onSuccess: (res) => {
           notification.success({
             title: "Success",
-            description: res.data.message,
+            description: res.data.message
           })
           props.onSuccess?.(data, res.data)
         },
         onError: (err) => {
           notification.error({
             title: err.response?.statusText || "Failed",
-            description: err.response?.data.message || err.message,
+            description: err.response?.data.message || err.message
           })
           props.onError?.()
-        },
-      },
+        }
+      }
     )
   })
 

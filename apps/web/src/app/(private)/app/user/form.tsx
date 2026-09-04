@@ -6,5 +6,5 @@ import { UserListSchema } from "@starter-pack/api-contracts"
 
 export const useFilterForm = () =>
   useForm({
-    resolver: zodResolver(UserListSchema.query),
+    resolver: zodResolver(UserListSchema.query)
   })

@@ -5,25 +5,25 @@
  * Instead, we can simply import the QueueModule and use the @InjectQueue() decorator to inject the queue into our services.
  */
 
-import { Global, Module } from '@nestjs/common';
-import { BullModule } from '@nestjs/bullmq';
-import { MailProcessor } from './mail.processor';
+import { Global, Module } from "@nestjs/common"
+import { BullModule } from "@nestjs/bullmq"
+import { MailProcessor } from "./mail.processor"
 
 @Global()
 @Module({
   imports: [
     BullModule.registerQueue({
-      name: 'mail',
+      name: "mail",
       defaultJobOptions: {
         attempts: 3,
         backoff: {
-          type: 'exponential',
-          delay: 1000,
-        },
-      },
-    }),
+          type: "exponential",
+          delay: 1000
+        }
+      }
+    })
   ],
   providers: [MailProcessor],
-  exports: [BullModule],
+  exports: [BullModule]
 })
 export class QueueModule {}

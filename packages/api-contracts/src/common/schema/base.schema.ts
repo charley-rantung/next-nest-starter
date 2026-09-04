@@ -23,7 +23,7 @@ export const BaseStringSchema = {
     .min(4)
     .max(30)
     .regex(/^[a-zA-Z0-9_]+$/, {
-      message: "Username can only contain letters, numbers, and underscores",
+      message: "Username can only contain letters, numbers, and underscores"
     }),
   /** Default email schema */
   email: z.email().trim().toLowerCase().max(255),
@@ -33,14 +33,14 @@ export const BaseStringSchema = {
     .min(8, "Password must be at least 8 characters")
     .max(100)
     .refine((val) => /[A-Z]/.test(val), "At least one uppercase letter is required")
-    .refine((val) => /[0-9]/.test(val), "At least one number is required"),
+    .refine((val) => /[0-9]/.test(val), "At least one number is required")
 }
 
 export const BaseDateSchema = {
   /** Default birthday schema */
   birthday: z.iso.date().refine((date) => new Date(date) < new Date(), {
-    message: "Birthday must be in the past",
-  }),
+    message: "Birthday must be in the past"
+  })
 }
 
 export const BaseCustomSchema = {
@@ -49,7 +49,7 @@ export const BaseCustomSchema = {
     /** Page Number */
     page: z.coerce.number<number>().int().positive().max(MAX_INT32).default(1),
     /** Page Size */
-    size: z.coerce.number<number>().int().positive().max(100).default(10),
+    size: z.coerce.number<number>().int().positive().max(100).default(10)
   }),
 
   /** Base pagination with search schema */
@@ -59,6 +59,6 @@ export const BaseCustomSchema = {
     /** Page Size */
     size: z.coerce.number<number>().int().positive().max(100).default(10),
     /** Query or Keywords */
-    search: z.string().trim().max(100).optional(),
-  }),
+    search: z.string().trim().max(100).optional()
+  })
 }

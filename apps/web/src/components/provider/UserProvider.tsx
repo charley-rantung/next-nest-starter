@@ -14,7 +14,7 @@ export default async function UserProvider({ children }: React.PropsWithChildren
 
     const { payload } = await jwtVerify<AccessTokenPayload>(
       accessToken,
-      new TextEncoder().encode(JWT_ACCESS_TOKEN_SECRET),
+      new TextEncoder().encode(JWT_ACCESS_TOKEN_SECRET)
     )
     user = payload.user
   } catch {

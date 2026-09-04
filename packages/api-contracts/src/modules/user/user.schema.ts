@@ -10,8 +10,8 @@ export const UserCreateSchema = {
     type: z.enum(["user", "admin"]),
     is_active: z.boolean().optional(),
     roles: z.array(BaseStringSchema.resourceId).max(100).optional(),
-    permissions: z.array(BaseStringSchema.resourceId).max(100).optional(),
-  }),
+    permissions: z.array(BaseStringSchema.resourceId).max(100).optional()
+  })
 }
 
 export const UserListSchema = {
@@ -19,23 +19,23 @@ export const UserListSchema = {
     z
       .object({
         type: z.enum(["user", "admin"]),
-        active: z.stringbool(),
+        active: z.stringbool()
       })
-      .partial().shape,
-  ),
+      .partial().shape
+  )
 }
 
 export const UserDetailSchema = {
   params: z.object({
-    uid: BaseStringSchema.resourceUid,
-  }),
+    uid: BaseStringSchema.resourceUid
+  })
 }
 
 export const UserUpdateSchema = {
   params: UserDetailSchema.params,
   body: UserCreateSchema.body
     .omit({
-      password: true,
+      password: true
     })
-    .partial(),
+    .partial()
 }

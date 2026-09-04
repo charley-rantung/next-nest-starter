@@ -9,7 +9,7 @@ import type {
   UserCreateResponse,
   UserListResponse,
   UserDetailResponse,
-  UserUpdateResponse,
+  UserUpdateResponse
 } from "@starter-pack/api-contracts"
 
 const PATH = "/users/"

@@ -11,7 +11,7 @@ import type {
   RoleCreateResponse,
   RoleListResponse,
   RoleDetailResponse,
-  RoleUpdateResponse,
+  RoleUpdateResponse
 } from "@starter-pack/api-contracts"
 
 const PATH = "/user-roles/"

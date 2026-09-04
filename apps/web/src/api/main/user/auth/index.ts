@@ -9,7 +9,7 @@ import type {
   ResetPasswordResponse,
   SignInBody,
   VerifyPasswordResetOtpBody,
-  VerifyPasswordResetOtpResponse,
+  VerifyPasswordResetOtpResponse
 } from "@starter-pack/api-contracts"
 import type { AxiosRequestConfig } from "axios"
 

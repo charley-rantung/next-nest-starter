@@ -8,7 +8,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons"
 
 export const useSignInForm = () =>
   useForm({
-    resolver: zodResolver(SignInSchema.body),
+    resolver: zodResolver(SignInSchema.body)
   })
 
 type SignInFormProps = {
@@ -26,8 +26,8 @@ export function SignInForm(props: SignInFormProps) {
       {
         body: {
           username: data.username,
-          password: data.password,
-        },
+          password: data.password
+        }
       },
       {
         onSuccess: () => {
@@ -36,11 +36,11 @@ export function SignInForm(props: SignInFormProps) {
         onError: (err) => {
           notification.error({
             title: err.response?.statusText || "Failed",
-            description: `${err.response?.data.requestId}: ${err.response?.data.message || err.message}`,
+            description: `${err.response?.data.requestId}: ${err.response?.data.message || err.message}`
           })
           props.onError?.()
-        },
-      },
+        }
+      }
     )
   })
 

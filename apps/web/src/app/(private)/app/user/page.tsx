@@ -14,7 +14,7 @@ export default function UsersPage() {
 
   const {
     control,
-    formState: { errors },
+    formState: { errors }
   } = c.filterForm
 
   const columns: TableProps<UserListResponse["data"][number]>["columns"] = [
@@ -29,7 +29,7 @@ export default function UsersPage() {
         <Link href={`${PRIVATE_ROUTE_PREFIX}/user/${data}`}>
           <Button icon={<EditOutlined />} />
         </Link>
-      ),
+      )
     },
     {
       title: "Active",
@@ -37,35 +37,35 @@ export default function UsersPage() {
       key: "is_active",
       width: 1,
       align: "center",
-      render: (data) => <Checkbox checked={data} />,
+      render: (data) => <Checkbox checked={data} />
     },
     {
       title: "Name",
       dataIndex: "name",
-      key: "name",
+      key: "name"
     },
     {
       title: "Email",
       dataIndex: "email",
-      key: "email",
+      key: "email"
     },
     {
       title: "Username",
       dataIndex: "username",
-      key: "username",
+      key: "username"
     },
     {
       title: "Created At",
       dataIndex: "created_at",
       key: "created_at",
-      render: (data) => dayjs(data).format("YYYY-MM-DD HH:mm:ss"),
+      render: (data) => dayjs(data).format("YYYY-MM-DD HH:mm:ss")
     },
     {
       title: "Updated At",
       dataIndex: "updated_at",
       key: "updated_at",
-      render: (data) => dayjs(data).format("YYYY-MM-DD HH:mm:ss"),
-    },
+      render: (data) => dayjs(data).format("YYYY-MM-DD HH:mm:ss")
+    }
   ]
 
   return (
@@ -117,12 +117,12 @@ export default function UsersPage() {
               current: c.query.page,
               pageSize: c.query.size,
               total: c.users.data?.data.meta.total,
-              showTotal: (total, range) => `${range[0]}-${range[1]} of ${total}`,
+              showTotal: (total, range) => `${range[0]}-${range[1]} of ${total}`
             }}
             onChange={(pagination) => {
               c.setQuery({
                 page: pagination.current || 1,
-                size: pagination.pageSize || 10,
+                size: pagination.pageSize || 10
               })
             }}
             size="small"

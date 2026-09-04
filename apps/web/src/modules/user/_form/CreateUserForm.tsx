@@ -10,8 +10,8 @@ export const useCreateUserForm = () =>
   useForm({
     resolver: zodResolver(UserCreateSchema.body),
     defaultValues: {
-      type: "user",
-    },
+      type: "user"
+    }
   })
 
 type CreateUserFormProps = {
@@ -36,26 +36,26 @@ export function CreateUserForm(props: CreateUserFormProps) {
           password: data.password,
           type: data.type,
           roles: data.roles?.map(Number) || [],
-          permissions: data.permissions?.map(Number) || [],
-        },
+          permissions: data.permissions?.map(Number) || []
+        }
       },
       {
         onSuccess: (res) => {
           form.reset()
           notification.success({
             title: "Success",
-            description: res.data.message,
+            description: res.data.message
           })
           props.onSuccess?.()
         },
         onError: (err) => {
           notification.error({
             title: err.response?.statusText || "Failed",
-            description: err.response?.data.message || err.message,
+            description: err.response?.data.message || err.message
           })
           props.onError?.()
-        },
-      },
+        }
+      }
     )
   })
 
@@ -131,7 +131,7 @@ export function CreateUserForm(props: CreateUserFormProps) {
               {...field}
               options={[
                 { label: "User", value: "user" },
-                { label: "Administrator", value: "admin" },
+                { label: "Administrator", value: "admin" }
               ]}
             />
           </Form.Item>
@@ -155,7 +155,7 @@ export function CreateUserForm(props: CreateUserFormProps) {
               mode="multiple"
               options={roles.data?.data.data.map((role) => ({
                 label: role.name,
-                value: role.id,
+                value: role.id
               }))}
               showSearch={{ optionFilterProp: ["label"] }}
               allowClear

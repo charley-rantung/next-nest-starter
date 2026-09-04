@@ -1,7 +1,7 @@
-import z from 'zod/v4';
+import z from "zod/v4"
 
 export const EnvSchema = z.object({
-  NODE_ENV: z.enum(['development', 'production', 'test']),
+  NODE_ENV: z.enum(["development", "production", "test"]),
   APP_PORT: z.coerce.number(),
   APP_HOST: z.string(),
   CORS_ALLOWED_ORIGIN: z.string(),
@@ -13,11 +13,11 @@ export const EnvSchema = z.object({
   SMTP_HOST: z.string(),
   SMTP_PORT: z.coerce.number(),
   SMTP_USER: z.string(),
-  SMTP_PASS: z.string(),
-});
+  SMTP_PASS: z.string()
+})
 
-export type EnvType = z.infer<typeof EnvSchema>;
+export type EnvType = z.infer<typeof EnvSchema>
 
 export const validate = (config: Record<string, any>) => {
-  return EnvSchema.parse(config);
-};
+  return EnvSchema.parse(config)
+}

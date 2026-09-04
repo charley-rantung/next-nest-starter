@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {
   VerifyPasswordResetOtpResponse,
   VerifyPasswordResetOtpSchema,
-  type VerifyPasswordResetOtpBody,
+  type VerifyPasswordResetOtpBody
 } from "@starter-pack/api-contracts"
 import { useMutation } from "@tanstack/react-query"
 import { verifyPasswordResetOtpMutationOptions } from "@/api/main/user/auth/query"
@@ -13,8 +13,8 @@ export const useRecoveryCodeForm = (email: string) =>
   useForm({
     resolver: zodResolver(VerifyPasswordResetOtpSchema.body),
     defaultValues: {
-      email: email,
-    },
+      email: email
+    }
   })
 
 type RecoveryCodeFormProps = {
@@ -34,28 +34,28 @@ export function RecoveryCodeForm(props: RecoveryCodeFormProps) {
         {
           body: {
             email: props.email,
-            otp: data.otp,
-          },
+            otp: data.otp
+          }
         },
         {
           onSuccess: (res) => {
             notification.success({
               title: "Success",
-              description: res.data.message,
+              description: res.data.message
             })
             props.onSuccess?.(data, res.data)
           },
           onError: (err) => {
             notification.error({
               title: err.response?.statusText || "Failed",
-              description: err.response?.data.message || err.message,
+              description: err.response?.data.message || err.message
             })
             props.onError?.()
-          },
-        },
+          }
+        }
       )
     },
-    (err) => console.log(err),
+    (err) => console.log(err)
   )
 
   return (

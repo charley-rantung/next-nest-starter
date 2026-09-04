@@ -7,5 +7,5 @@ type RecoveryState = {
 
 export const useRecoveryStore = create<RecoveryState>((set) => ({
   token: null,
-  setToken: (newToken) => set({ token: newToken }),
+  setToken: (newToken) => set({ token: newToken })
 }))

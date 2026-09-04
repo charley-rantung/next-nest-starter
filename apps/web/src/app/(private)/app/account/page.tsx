@@ -11,12 +11,12 @@ export default function ProfilePage() {
     {
       key: "Name",
       label: "Name",
-      children: c.user.data?.data.data?.name,
+      children: c.user.data?.data.data?.name
     },
     {
       key: "Username",
       label: "Username",
-      children: c.user.data?.data.data?.username,
+      children: c.user.data?.data.data?.username
     },
     {
       key: "Password",
@@ -25,8 +25,8 @@ export default function ProfilePage() {
         <Button type="primary" onClick={() => c.setIsModalOpen(true)}>
           Change Password
         </Button>
-      ),
-    },
+      )
+    }
   ]
 
   return (
@@ -43,28 +43,28 @@ export default function ProfilePage() {
               {
                 key: "ip_address",
                 dataIndex: "ip_address",
-                title: "IP Address",
+                title: "IP Address"
               },
               {
                 key: "user_agent",
                 dataIndex: "user_agent",
-                title: "User Agent",
+                title: "User Agent"
               },
               {
                 key: "created_at",
                 dataIndex: "created_at",
-                title: "Created At",
+                title: "Created At"
               },
               {
                 key: "last_used_at",
                 dataIndex: "last_used_at",
-                title: "Last Activity",
+                title: "Last Activity"
               },
               {
                 key: "action",
                 title: "Action",
-                render: () => <Button>Revoke</Button>,
-              },
+                render: () => <Button>Revoke</Button>
+              }
             ]}
           />
         </Card>

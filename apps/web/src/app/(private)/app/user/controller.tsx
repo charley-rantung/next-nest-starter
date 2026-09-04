@@ -18,7 +18,7 @@ export function useUserListController() {
     setQuery((prev) => ({
       ...prev,
       ...data,
-      active: String(data.active),
+      active: String(data.active)
     }))
     setIsFilterDrawerOpen(false)
   })
@@ -26,7 +26,7 @@ export function useUserListController() {
   const handleSearch = debounce((val: string | undefined) => {
     setQuery((prev) => ({
       ...prev,
-      search: val,
+      search: val
     }))
   })
 
@@ -38,6 +38,6 @@ export function useUserListController() {
     setIsFilterDrawerOpen,
     filterForm,
     handleSearch,
-    handleFilter,
+    handleFilter
   }
 }

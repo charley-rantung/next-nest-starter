@@ -10,7 +10,7 @@ import { App, Button, Empty, Form, Input, Select, Skeleton } from "antd"
 export const useUpdateUserForm = () =>
   useForm({
     resolver: zodResolver(UserUpdateSchema.body),
-    defaultValues: {},
+    defaultValues: {}
   })
 
 type UpdateUserFormProps = {
@@ -31,15 +31,15 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
     action.mutate(
       {
         params: {
-          uid: props.uid,
+          uid: props.uid
         },
         body: {
           username: data.username,
           name: data.name,
           type: data.type,
           roles: data.roles,
-          permissions: data.permissions,
-        },
+          permissions: data.permissions
+        }
       },
       {
         onSuccess: (res) => {
@@ -47,22 +47,22 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
             name: res.data.data.name,
             username: res.data.data.username,
             type: res.data.data.type === "user" ? "user" : "admin",
-            roles: res.data.data.roles.map((role) => role.id),
+            roles: res.data.data.roles.map((role) => role.id)
           })
           notification.success({
             title: "Success",
-            description: res.data.message,
+            description: res.data.message
           })
           props.onSuccess?.()
         },
         onError: (err) => {
           notification.error({
             title: err.response?.statusText || "Failed",
-            description: err.response?.data.message || err.message,
+            description: err.response?.data.message || err.message
           })
           props.onError?.()
-        },
-      },
+        }
+      }
     )
   })
 
@@ -72,7 +72,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
         name: user.data.data.data.name,
         username: user.data.data.data.username,
         type: user.data.data.data.type === "user" ? "user" : "admin",
-        roles: user.data.data.data.roles.map((role) => role.id),
+        roles: user.data.data.data.roles.map((role) => role.id)
       })
     }
   }, [user.data, form])
@@ -129,7 +129,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
               {...field}
               options={[
                 { label: "User", value: "user" },
-                { label: "Administrator", value: "admin" },
+                { label: "Administrator", value: "admin" }
               ]}
             />
           </Form.Item>
@@ -153,7 +153,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
               mode="multiple"
               options={roles.data?.data.data.map((role) => ({
                 label: role.name,
-                value: role.id,
+                value: role.id
               }))}
               showSearch={{ optionFilterProp: "label" }}
               allowClear

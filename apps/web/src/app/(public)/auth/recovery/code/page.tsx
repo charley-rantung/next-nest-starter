@@ -15,7 +15,7 @@ export default function RecoveryCodePage() {
 
   useEffect(() => {
     if (!email) router.replace("/auth/recovery/initiate")
-  }, [email])
+  }, [email, router])
 
   if (!email) return
 

@@ -8,7 +8,7 @@ import { App, Button, Form, Input, Select } from "antd"
 
 export const useCreateRoleForm = () =>
   useForm({
-    resolver: zodResolver(RoleCreateSchema.body),
+    resolver: zodResolver(RoleCreateSchema.body)
   })
 
 type CreateRoleFormProps = {
@@ -29,26 +29,26 @@ export function CreateRoleForm(props: CreateRoleFormProps) {
         body: {
           name: data.name,
           description: data.description,
-          permissions: data.permissions,
-        },
+          permissions: data.permissions
+        }
       },
       {
         onSuccess: (res) => {
           form.reset()
           notification.success({
             title: "Success",
-            description: res.data.message,
+            description: res.data.message
           })
           props.onSuccess?.()
         },
         onError: (err) => {
           notification.error({
             title: err.response?.statusText || "Failed",
-            description: err.response?.data.message || err.message,
+            description: err.response?.data.message || err.message
           })
           props.onError?.()
-        },
-      },
+        }
+      }
     )
   })
 
@@ -99,7 +99,7 @@ export function CreateRoleForm(props: CreateRoleFormProps) {
               mode="multiple"
               options={permissions.data?.data.data.map((p) => ({
                 label: p.name,
-                value: p.id,
+                value: p.id
               }))}
               showSearch={{ optionFilterProp: ["label"] }}
               allowClear

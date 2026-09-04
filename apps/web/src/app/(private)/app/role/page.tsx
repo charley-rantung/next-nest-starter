@@ -22,18 +22,18 @@ export default function RolesPage() {
         <Link href={`${PRIVATE_ROUTE_PREFIX}/role/${data}`}>
           <Button icon={<EditOutlined />} />
         </Link>
-      ),
+      )
     },
     {
       title: "Name",
       dataIndex: "name",
-      key: "name",
+      key: "name"
     },
     {
       title: "Description",
       dataIndex: "description",
-      key: "description",
-    },
+      key: "description"
+    }
   ]
 
   return (
@@ -79,12 +79,12 @@ export default function RolesPage() {
             pagination={{
               current: c.query.page,
               pageSize: c.query.size,
-              total: c.roles.data?.data.meta.total,
+              total: c.roles.data?.data.meta.total
             }}
             onChange={(pagination) => {
               c.setQuery({
                 page: pagination.current || 1,
-                size: pagination.pageSize || 10,
+                size: pagination.pageSize || 10
               })
             }}
             size="small"

@@ -5,30 +5,30 @@ import type { UserDetailParams, UserListQuery } from "@starter-pack/api-contract
 export const getUsersQueryOptions = (query?: UserListQuery) =>
   queryOptions({
     queryKey: ["user:list", query],
-    queryFn: () => x.getUsers({ query }),
+    queryFn: () => x.getUsers({ query })
   })
 
 export const getUserQueryOptions = (params: UserDetailParams) =>
   queryOptions({
     queryKey: ["user:detail", params],
     queryFn: () => x.getUser({ params }),
-    enabled: !!params.uid,
+    enabled: !!params.uid
   })
 
 export const getMeQueryOptions = () =>
   queryOptions({
     queryKey: ["user:me"],
-    queryFn: () => x.getMe(),
+    queryFn: () => x.getMe()
   })
 
 export const createUserMutationOptions = () =>
   mutationOptions({
     mutationKey: ["user:create"],
-    mutationFn: x.createUser,
+    mutationFn: x.createUser
   })
 
 export const updateUserMutationOptions = () =>
   mutationOptions({
     mutationKey: ["user:update"],
-    mutationFn: x.updateUser,
+    mutationFn: x.updateUser
   })

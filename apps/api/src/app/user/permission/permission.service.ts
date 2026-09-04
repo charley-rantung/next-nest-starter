@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/common/provider/prisma/prisma.service';
-import type { Permissions } from '@starter-pack/api-contracts';
-import type { PermissionListQuery } from './permission.types';
+import { Injectable } from "@nestjs/common"
+import { PrismaService } from "src/common/provider/prisma/prisma.service"
+import type { Permissions } from "@starter-pack/api-contracts"
+import type { PermissionListQuery } from "./permission.types"
 
 @Injectable()
 export class PermissionService {
@@ -14,14 +14,14 @@ export class PermissionService {
           id: true,
           slug: true,
           name: true,
-          description: true,
+          description: true
         },
         take: query.size,
-        skip: query.size * (query.page - 1),
+        skip: query.size * (query.page - 1)
       }),
-      this.prismaService.permission.count(),
-    ]);
+      this.prismaService.permission.count()
+    ])
 
-    return [permissions, total];
+    return [permissions, total]
   }
 }

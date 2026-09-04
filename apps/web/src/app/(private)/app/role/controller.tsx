@@ -14,7 +14,7 @@ export function useRoleListController() {
   const handleSearch = debounce((val: string | undefined) => {
     setQuery((prev) => ({
       ...prev,
-      search: val,
+      search: val
     }))
   })
 
@@ -22,6 +22,6 @@ export function useRoleListController() {
     roles,
     query,
     setQuery,
-    handleSearch,
+    handleSearch
   }
 }
