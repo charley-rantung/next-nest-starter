@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from "@nestjs/common"
-import { PermissionGuard, Permissions } from "src/common/guard/permission.guard"
+import { Body, Controller, Get, Param, Patch, Post, Query } from "@nestjs/common"
+import { Permissions } from "src/common/guard/permission.guard"
 import { UserService } from "./user.service"
 import { ZodPipe } from "src/common/pipe/zod.pipe"
 import { Session } from "src/common/decorator/session.decorator"
@@ -17,7 +17,6 @@ import {
 import type { UserCreateBody, UserDetailParams, UserListQuery, UserUpdateBody, UserUpdateParams } from "./user.types"
 
 @Controller("users")
-@UseGuards(PermissionGuard)
 export class UserController {
   constructor(private userService: UserService) {}
 

@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from "@nestjs/common"
-import { PermissionGuard, Permissions } from "src/common/guard/permission.guard"
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common"
+import { Permissions } from "src/common/guard/permission.guard"
 import { RoleService } from "./role.service"
 import { ZodPipe } from "src/common/pipe/zod.pipe"
 import {
@@ -24,7 +24,6 @@ import type {
 } from "./role.types"
 
 @Controller("user-roles")
-@UseGuards(PermissionGuard)
 export class RoleController {
   constructor(private roleService: RoleService) {}
 
