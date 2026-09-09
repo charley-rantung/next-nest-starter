@@ -149,10 +149,14 @@ export default function UsersPage() {
                 help={errors.type?.message}
                 required
               >
-                <Select {...field} allowClear>
-                  <Select.Option value="user">User</Select.Option>
-                  <Select.Option value="admin">Administrator</Select.Option>
-                </Select>
+                <Select
+                  {...field}
+                  options={[
+                    { label: "User", value: "user" },
+                    { label: "Administrator", value: "admin" }
+                  ]}
+                  allowClear
+                />
               </Form.Item>
             )}
           />
@@ -166,10 +170,14 @@ export default function UsersPage() {
                 help={errors.active?.message}
                 required
               >
-                <Select {...field} allowClear>
-                  <Select.Option value={1}>Active</Select.Option>
-                  <Select.Option value={0}>Inactive</Select.Option>
-                </Select>
+                <Select
+                  {...field}
+                  options={[
+                    { label: "Active", value: 1 },
+                    { label: "Inactive", value: 0 }
+                  ]}
+                  allowClear
+                />
               </Form.Item>
             )}
           />
