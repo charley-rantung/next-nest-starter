@@ -1,4 +1,4 @@
-import z from "zod/v4"
+import * as z from "zod"
 
 export const EnvSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]),
@@ -16,7 +16,7 @@ export const EnvSchema = z.object({
   SMTP_PASS: z.string()
 })
 
-export type EnvType = z.infer<typeof EnvSchema>
+export type EnvType = z.output<typeof EnvSchema>
 
 export const validate = (config: Record<string, any>) => {
   return EnvSchema.parse(config)
