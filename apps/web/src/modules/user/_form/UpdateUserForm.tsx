@@ -1,7 +1,7 @@
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { UserUpdateSchema } from "@starter-pack/api-contracts"
+import { UserDetailResponse, UserUpdateSchema } from "@starter-pack/api-contracts"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { getUserQueryOptions, updateUserMutationOptions } from "@/api/main/user/query"
 import { getRolesQueryOptions } from "@/api/main/user/role/query"
@@ -27,6 +27,20 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
 
   const action = useMutation(updateUserMutationOptions())
   const form = useUpdateUserForm()
+  const resetForm = useCallback(
+    (data: UserDetailResponse) => {
+      const user = data.data
+      if (!user) return
+
+      form.reset({
+        name: user.name,
+        username: user.username,
+        type: user.type === "user" ? "user" : "admin",
+        roles: user.roles.map((role) => role.id)
+      })
+    },
+    [form]
+  )
   const handleSubmit = form.handleSubmit((data) => {
     action.mutate(
       {
@@ -43,12 +57,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
       },
       {
         onSuccess: (res) => {
-          form.reset({
-            name: res.data.data.name,
-            username: res.data.data.username,
-            type: res.data.data.type === "user" ? "user" : "admin",
-            roles: res.data.data.roles.map((role) => role.id)
-          })
+          resetForm(res.data)
           notification.success({
             title: "Success",
             description: res.data.message
@@ -68,14 +77,9 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
 
   useEffect(() => {
     if (user.data?.data.data) {
-      form.reset({
-        name: user.data.data.data.name,
-        username: user.data.data.data.username,
-        type: user.data.data.data.type === "user" ? "user" : "admin",
-        roles: user.data.data.data.roles.map((role) => role.id)
-      })
+      resetForm(user.data.data)
     }
-  }, [user.data, form])
+  }, [user.data, resetForm])
 
   if (user.isLoading) {
     return <Skeleton />

@@ -1,7 +1,7 @@
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { RoleUpdateSchema } from "@starter-pack/api-contracts"
+import { RoleDetailResponse, RoleUpdateSchema } from "@starter-pack/api-contracts"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { getRoleQueryOptions, updateRoleMutationOptions } from "@/api/main/user/role/query"
 import { getPermissionsQueryOptions } from "@/api/main/user/permission/query"
@@ -26,6 +26,19 @@ export function UpdateRoleForm(props: UpdateRoleFormProps) {
 
   const action = useMutation(updateRoleMutationOptions())
   const form = useUpdateRoleForm()
+  const resetForm = useCallback(
+    (data: RoleDetailResponse) => {
+      const role = data.data
+      if (!role) return
+
+      form.reset({
+        name: role.name,
+        description: role.description ?? "",
+        permissions: role.permissions.map((p) => p.id)
+      })
+    },
+    [form]
+  )
   const handleSubmit = form.handleSubmit((data) => {
     action.mutate(
       {
@@ -40,11 +53,7 @@ export function UpdateRoleForm(props: UpdateRoleFormProps) {
       },
       {
         onSuccess: (res) => {
-          form.reset({
-            name: res.data.data.name,
-            description: res.data.data.description ?? "",
-            permissions: res.data.data.permissions.map((p) => p.id)
-          })
+          resetForm(res.data)
           notification.success({
             title: "Success",
             description: res.data.message
@@ -64,13 +73,9 @@ export function UpdateRoleForm(props: UpdateRoleFormProps) {
 
   useEffect(() => {
     if (role.data?.data.data) {
-      form.reset({
-        name: role.data.data.data.name,
-        description: role.data.data.data.description ?? "",
-        permissions: role.data.data.data.permissions.map((p) => p.id)
-      })
+      resetForm(role.data.data)
     }
-  }, [role.data, form])
+  }, [role.data, resetForm])
 
   if (role.isLoading) {
     return <Skeleton />
