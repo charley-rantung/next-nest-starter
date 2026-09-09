@@ -57,14 +57,15 @@ export function ResetPasswordForm(props: ResetPasswordFormProps) {
   return (
     <Form onFinish={handleSubmit} layout="vertical" size="large">
       <fieldset>
-        <Form.Item
-          validateStatus={form.formState.errors.password ? "error" : undefined}
-          help={form.formState.errors.password?.message}
-        >
-          <Controller
-            name="password"
-            control={form.control}
-            render={({ field }) => (
+        <Controller
+          name="password"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Form.Item
+              validateStatus={fieldState.error ? "error" : undefined}
+              help={fieldState.error?.message}
+              required
+            >
               <Input.Password
                 {...field}
                 prefix={<LockOutlined />}
@@ -72,9 +73,9 @@ export function ResetPasswordForm(props: ResetPasswordFormProps) {
                 autoComplete="new-password"
                 autoFocus
               />
-            )}
-          />
-        </Form.Item>
+            </Form.Item>
+          )}
+        />
         <Form.Item>
           <Button block type="primary" htmlType="submit" className="mt-4" loading={action.isPending}>
             Atur

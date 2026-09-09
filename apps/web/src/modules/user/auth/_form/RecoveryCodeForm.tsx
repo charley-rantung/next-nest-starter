@@ -61,16 +61,19 @@ export function RecoveryCodeForm(props: RecoveryCodeFormProps) {
   return (
     <Form onFinish={handleSubmit} layout="vertical" size="large">
       <fieldset>
-        <Form.Item
-          validateStatus={form.formState.errors.otp ? "error" : undefined}
-          help={form.formState.errors.otp?.message}
-        >
-          <Controller
-            name="otp"
-            control={form.control}
-            render={({ field }) => <Input.OTP {...field} autoFocus inputMode="decimal" />}
-          />
-        </Form.Item>
+        <Controller
+          name="otp"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Form.Item
+              validateStatus={fieldState.error ? "error" : undefined}
+              help={fieldState.error?.message}
+              required
+            >
+              <Input.OTP {...field} autoFocus inputMode="decimal" />
+            </Form.Item>
+          )}
+        />
         <Form.Item>
           <Button block type="primary" htmlType="submit" className="mt-4" loading={action.isPending}>
             Lanjutkan

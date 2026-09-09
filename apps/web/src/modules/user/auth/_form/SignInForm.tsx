@@ -47,28 +47,32 @@ export function SignInForm(props: SignInFormProps) {
   return (
     <Form onFinish={handleSubmit} layout="vertical" size="large">
       <fieldset>
-        <Form.Item
-          validateStatus={form.formState.errors.username ? "error" : undefined}
-          help={form.formState.errors.username?.message}
-        >
-          <Controller
-            name="username"
-            control={form.control}
-            render={({ field }) => <Input {...field} prefix={<UserOutlined />} placeholder="username" autoFocus />}
-          />
-        </Form.Item>
-        <Form.Item
-          validateStatus={form.formState.errors.password ? "error" : undefined}
-          help={form.formState.errors.password?.message}
-        >
-          <Controller
-            name="password"
-            control={form.control}
-            render={({ field }) => (
+        <Controller
+          name="username"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Form.Item
+              validateStatus={fieldState.error ? "error" : undefined}
+              help={fieldState.error?.message}
+              required
+            >
+              <Input {...field} prefix={<UserOutlined />} placeholder="username" autoFocus />
+            </Form.Item>
+          )}
+        />
+        <Controller
+          name="password"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Form.Item
+              validateStatus={fieldState.error ? "error" : undefined}
+              help={fieldState.error?.message}
+              required
+            >
               <Input.Password {...field} prefix={<LockOutlined />} placeholder="password" autoComplete="new-password" />
-            )}
-          />
-        </Form.Item>
+            </Form.Item>
+          )}
+        />
         <Form.Item>
           <Button block type="primary" htmlType="submit" className="mt-4" loading={action.isPending}>
             Sign In

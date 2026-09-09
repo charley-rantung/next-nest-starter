@@ -50,18 +50,19 @@ export function RequestPasswordResetForm(props: RequestPasswordResetFormProps) {
   return (
     <Form onFinish={handleSubmit} layout="vertical" size="large">
       <fieldset>
-        <Form.Item
-          validateStatus={form.formState.errors.email ? "error" : undefined}
-          help={form.formState.errors.email?.message}
-        >
-          <Controller
-            name="email"
-            control={form.control}
-            render={({ field }) => (
+        <Controller
+          name="email"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Form.Item
+              validateStatus={fieldState.error ? "error" : undefined}
+              help={fieldState.error?.message}
+              required
+            >
               <Input {...field} prefix={<MailOutlined />} placeholder="email@domain.com" inputMode="email" autoFocus />
-            )}
-          />
-        </Form.Item>
+            </Form.Item>
+          )}
+        />
         <Form.Item>
           <Button block type="primary" htmlType="submit" className="mt-4" loading={action.isPending}>
             Kirim
