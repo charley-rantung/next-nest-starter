@@ -9,9 +9,7 @@ import CookieParser from "cookie-parser"
 import type { EnvType } from "./common/utils/env.utils"
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    logger: ["error", "warn"]
-  })
+  const app = await NestFactory.create<NestExpressApplication>(AppModule)
   const config = app.get(ConfigService<EnvType, true>)
 
   const PORT = config.get("APP_PORT", { infer: true })
@@ -20,10 +18,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix("api/v1")
   app.set("trust proxy", "loopback")
-  app.enableCors({
-    origin: ORIGINS,
-    credentials: true
-  })
+  app.enableCors({ origin: ORIGINS, credentials: true })
   app.use(Helmet())
   app.use(CookieParser())
   app.useGlobalFilters(new ExceptionHandlerFilter())
@@ -33,4 +28,8 @@ async function bootstrap() {
     console.info(`🚀 Server running on ${HOST}:${PORT}`)
   })
 }
-bootstrap().catch(() => {})
+
+bootstrap().catch((err) => {
+  console.error("❌ Failed to bootstrap application", err)
+  process.exit(1)
+})

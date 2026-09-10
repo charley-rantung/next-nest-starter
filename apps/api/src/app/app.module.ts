@@ -15,6 +15,7 @@ import { MailModule } from "src/common/provider/mail/mail.module"
 import { QueueModule } from "src/common/provider/queue/queue.module"
 import { UserModule } from "./user/user.module"
 import { RedisService } from "src/common/provider/redis/redis.service"
+import { createBullMQConnection } from "src/common/provider/redis/bullmq-connection.factory"
 import * as env from "src/common/utils/env.utils"
 
 @Module({
@@ -48,12 +49,7 @@ import * as env from "src/common/utils/env.utils"
       // imports: [RedisModule],
       inject: [RedisService],
       useFactory: (redisService: RedisService) => ({
-        throttlers: [
-          {
-            ttl: 60_000,
-            limit: 100
-          }
-        ],
+        throttlers: [{ ttl: 60_000, limit: 100 }],
         errorMessage: "Too many request",
         storage: new ThrottlerStorageRedisService(redisService)
       })
@@ -62,7 +58,7 @@ import * as env from "src/common/utils/env.utils"
       // imports: [RedisModule],
       inject: [RedisService],
       useFactory: (redisService: RedisService) => ({
-        connection: redisService
+        connection: createBullMQConnection(redisService)
       })
     }),
     PrismaModule,

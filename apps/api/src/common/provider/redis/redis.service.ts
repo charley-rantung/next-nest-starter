@@ -9,7 +9,11 @@ export class RedisService extends Redis {
     super(configService.get("REDIS_URL", { infer: true }))
 
     this.on("connect", () => {
-      console.info("✅ Redis connected")
+      console.info("✅ Redis connected (core)")
+    })
+
+    this.on("error", (err) => {
+      console.error("❌ Redis connection error (core)", err)
     })
   }
 }
